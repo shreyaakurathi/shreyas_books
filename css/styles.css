@@ -77,20 +77,9 @@ body {
   /* height: 0px; */
 }
 
-#books {
-  display: flex; /* Ensures images are side by side */
-  flex-direction: row-reverse;
-  align-items: stretch; /* Makes sure all images take full height */
-  gap: 0px; /* Removes any space between images */
-  overflow-x: auto; /* Allows horizontal scrolling if needed */
-  white-space: nowrap; /* Ensures images stay in one line */
-}
-
 .book-images {
-  display: block;
-  max-height: 100vh;
-  object-fit: contain;
-
+  margin-left: 0px;
+  height: 100vh
 }
 
 .book-images:hover {
