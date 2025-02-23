@@ -1,66 +1,68 @@
-$(document).ready(function() {
-    $.getJSON("books.json", function(books) {
+$(document).ready(function () {
+  $.getJSON("books.json", function (books) {
       var length = books.length;
-      console.log(length);
-  
-      for (var i = 1; i < length + 1; i++) {
-        $("#books").append(
-          '<img class="book-images" id="' + i + '" src="images/' + i + '.jpg">'
-        );
-        getSize(i);
+
+      function displayBooks(bookList) {
+          $("#books").empty(); // Clear previous books
+          bookList.forEach((book) => {
+              $("#books").append(
+                  `<img class="book-images" data-id="${book.Number}" src="images/${book.Number}.jpg">`
+              );
+          });
+          attachHoverEvents(bookList);
       }
-  
-      $("#reading-book").html(books[length-1].Title);
-  
-      $(".book-images").hover(function(){
-        $("#number").html("(#" + books[this.id-1].Number + ")");
-        $("#title").html(books[this.id-1].Title);
-        $("#author").html(books[this.id-1].Author);
-        // console.log(this.id);
-        $("#description").css("display", "flex");
-        }, function(){
-        $("#description").css("display", "none");
+
+      function attachHoverEvents(bookList) {
+          $(".book-images").hover(
+              function () {
+                  let bookNumber = $(this).data("id");
+                  let book = bookList.find((b) => b.Number == bookNumber);
+                  if (book) {
+                      $("#number").html("(#" + book.Number + ")");
+                      $("#title").html(book.Title);
+                      $("#author").html(book.Author);
+                      $("#description").css("display", "flex");
+                  }
+              },
+              function () {
+                  $("#description").css("display", "none");
+              }
+          );
+      }
+
+      // ** Side Panel Toggle **  
+      $("#open-sort-panel, #toggle-icon").click(function () {
+          $("#sort-panel").toggleClass("open"); // Toggle open/close
       });
-      resizeImages(); // Resize images when they are loaded
-      $(window).resize(resizeImages); // Resize images on window resize
-    });
-  
-    function getSize(number) {
-      var img = document.getElementById(number);
-  
-      img.onload = function() {
-        var width = img.naturalWidth;
-        var height = img.naturalHeight;
-  
-        var w = window.innerWidth;
-  
-        if (w <= 1500 && w >= 1200) {
-          var newWidth = width / 5;
-          var newHeight = height / 5;
-        }
-        else if (w <= 1200) {
-          var newWidth = width / 6;
-          var newHeight = height / 6;
-        }
-        else if (w >= 1500) {
-          var newWidth = width / 3;
-          var newHeight = height / 3;
-        }
-  
-        widthString = newWidth.toString();
-        heightString = newHeight.toString();
-  
-        img.style.height = heightString + 'px';
-        img.style.width = widthString + 'px';
-      }
-    }
-    function resizeImages() {
-        var screenHeight = window.innerHeight;
-        $(".book-images").each(function() {
-            $(this).css({
-                height: screenHeight + "px",
-                width: "auto" // Maintain aspect ratio
-            });
-        });
-    }
+
+      $(".close-btn").click(function () {
+          $("#sort-panel").removeClass("open"); // Close panel
+      });
+
+      // ** Sorting Logic **  
+      $("#sort-options").on("change", function () {
+          let sortedBooks = [...books]; // Clone array
+          let sortBy = $(this).val();
+
+          if (sortBy === "rating-high") {
+              sortedBooks.sort((a, b) => a.Rating - b.Rating); 
+          } else if (sortBy === "rating-low") {
+              sortedBooks.sort((a, b) => b.Rating - a.Rating); 
+          }
+
+          displayBooks(sortedBooks);
+      });
+
+      // ** Reset Button Fix **  
+      $("#reset-sort").click(function () {
+          $("#sort-options").val(""); // Reset dropdown  
+          displayBooks(books); // Show books in original order
+      });
+
+      // Initial book rendering  
+      displayBooks(books);
+
+      // Display currently reading book  
+      $("#reading-book").html(books[length - 1].Title);
   });
+});
