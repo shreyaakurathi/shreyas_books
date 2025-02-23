@@ -136,3 +136,66 @@ body {
   font-size: 22px;
   text-decoration: underline;
 }
+.side-panel {
+  position: fixed;
+  right: -300px; /* Hidden initially */
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background: lavender;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease-in-out;
+  padding: 20px;
+}
+
+.side-panel h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.side-panel select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#sort-panel h2 {
+  color: #6a5acd; /* Soft purple */
+  font-weight: bold; /* Optional: Make it bold */
+}
+
+.sort-icon {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+#sort-panel.open {
+  right: 0; /* Slide in */
+}
+.reset-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 8px;
+  background-color: #a39dc5; /* Matches aesthetic */
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.reset-btn:hover {
+  background-color: #8d85b5;
+}
