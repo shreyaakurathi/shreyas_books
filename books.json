@@ -5,13 +5,24 @@
         "Title": "Invisible Women: Data Bias in a World Designed for Men",
         "Author": "Caroline Criado-Perez",
         "Rating": 4.5,
-        "Year": 2019
+        "Year": 2025,
+        "web_link": "www.youtube.com"
     },
     {
         "Number": 2,
         "Title": "1984",
         "Author": "George Orwell",
-        "Rating": 3,
-        "Year": 2024
+        "Rating": 4,
+        "Year": 2025,
+        "web_link":"www.youtube.com"
+    }
+    ,
+    {
+        "Number": 3,
+        "Title": "Convenience Store Woman",
+        "Author": "Sayaka Murata",
+        "Rating": 4,
+        "Year": 2025,
+        "web_link":"www.youtube.com"
     }
 ]
